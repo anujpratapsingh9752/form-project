@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stylish Registration Form</title>
+  <style>
+    /* Reset-ish */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, Arial, sans-serif; }
+    :root{
+      --bg1: #0f172a;
+      --card: #0b1220;
+      --accent: linear-gradient(135deg,#7c3aed 0%, #06b6d4 100%);
+      --glass: rgba(255,255,255,0.04);
+      --muted: rgba(255,255,255,0.7);
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(circle at 10% 10%, rgba(124,58,237,0.12), transparent 10%),
+                  radial-gradient(circle at 90% 90%, rgba(6,182,212,0.08), transparent 10%),
+                  var(--bg1);
+      padding: 32px;
+      color: #e6eef8;
+    }
+
+    .container{
+      width: 100%;
+      max-width: 980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap: 22px;
+    }
+
+    /* Left side: heading + description */
+    .hero{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      justify-content:center;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;
+      box-shadow: 0 6px 18px rgba(124,58,237,0.18);
+    }
+    h1{ font-size:22px; margin-top:6px; letter-spacing: -0.3px;}
+    p.lead{ color:var(--muted); line-height:1.45; font-size:14px; }
+
+    /* Right side: the form card */
+    form.card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .row{ display:flex; gap:10px; }
+    .col{ flex:1; min-width:0; display:flex; flex-direction:column; gap:8px; }
+
+    label{ font-size:13px; color:var(--muted); }
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 10px 12px;
+      border-radius:8px;
+      color: #e6eef8;
+      outline: none;
+      font-size:14px;
+    }
+    input:focus, textarea:focus, select:focus { box-shadow: 0 6px 18px rgba(6,182,212,0.06); border-color: rgba(6,182,212,0.18); }
+
+    textarea{ min-height:90px; resize:vertical; }
+
+    .small{ font-size:12px; color: rgba(255,255,255,0.6); margin-top:4px; }
+
+    .actions{ display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:6px; }
+    button.primary{
+      background: var(--accent);
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 8px 30px rgba(124,58,237,0.16);
+    }
+    button.ghost{
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    .note{ font-size:13px; color: rgba(255,255,255,0.65); }
+
+    .success{
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.14);
+      color: #8ff0ff;
+      padding:10px;
+      border-radius:8px;
+      font-size:14px;
+    }
+
+    footer { grid-column: 1 / -1; text-align:center; color: rgba(255,255,255,0.5); font-size:13px; margin-top: 8px; }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .container{ grid-template-columns: 1fr; padding:18px; }
+      .hero{ order:2; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" role="main">
+    <div class="hero" aria-hidden="false">
+      <div style="display:flex;gap:12px;align-items:center;">
+        <div class="logo">FR</div>
+        <div>
+          <div style="color:rgba(255,255,255,0.8);font-weight:600;">Flair Registration</div>
+          <div style="font-size:12px;color:var(--muted);">Modern, responsive form for portfolio / contact / signup</div>
+        </div>
+      </div>
+
+      <h1>Sign up for early access</h1>
+      <p class="lead">Simple form with fields commonly required for a real signup. Clean UI and responsive layout — add your backend later or just demo client-side behavior.</p>
+
+      <div style="margin-top:12px;">
+        <div class="note"><strong>Tip:</strong> Save this file as <code>index.html</code> and open in browser. Press Submit to see demo success message.</div>
+      </div>
+    </div>
+
+    <form class="card" id="regForm" onsubmit="return handleSubmit(event)" novalidate>
+      <div class="row">
+        <div class="col">
+          <label for="fullname">Full name</label>
+          <input id="fullname" name="fullname" type="text" placeholder="Your full name" required minlength="3" />
+        </div>
+        <div class="col">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" pattern="^[0-9+ -]{7,20}$" />
+          <div class="small">Numbers and + allowed. Optional but recommended.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="name@example.com" required />
+        </div>
+        <div class="col">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="At least 6 characters" minlength="6" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="role">I am a</label>
+          <select id="role" name="role">
+            <option value="">Select role</option>
+            <option>Student</option>
+            <option>Developer</option>
+            <option>Designer</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="dob">Date of birth</label>
+          <input id="dob" name="dob" type="date" />
+        </div>
+      </div>
+
+      <div>
+        <label for="about">Short bio / message</label>
+        <textarea id="about" name="about" placeholder="Tell us a little about yourself (optional)"></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <label style="flex:0 0 auto;"><input type="checkbox" id="terms" required /> &nbsp; I agree to terms</label>
+        <div style="flex:1" class="small">By submitting you agree to our demo terms. This is just a static demo — no data is sent anywhere.</div>
+      </div>
+
+      <div class="actions">
+        <div>
+          <button type="button" class="ghost" onclick="fillDemo()">Fill demo</button>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button type="reset" class="ghost">Reset</button>
+          <button type="submit" class="primary">Submit</button>
+        </div>
+      </div>
+
+      <div id="result" aria-live="polite"></div>
+    </form>
+
+    <footer>Made with ❤️ — Practice project for HTML & CSS. Want a version with backend (Node/Flask) or with nicer animations? Tell me!</footer>
+  </div>
+
+  <script>
+    function fillDemo(){
+      document.getElementById('fullname').value = "Anuj Pratap";
+      document.getElementById('email').value = "anuj@example.com";
+      document.getElementById('phone').value = "+91 9876543210";
+      document.getElementById('password').value = "secret123";
+      document.getElementById('role').value = "Developer";
+      document.getElementById('about').value = "I am learning DevOps and building projects.";
+      document.getElementById('terms').checked = true;
+    }
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      // simple validation check using HTML5 validity
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return false;
+      }
+
+      // gather data (for demo)
+      const data = {
+        name: form.fullname.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        role: form.role.value,
+        about: form.about.value.trim()
+      };
+
+      // Show success message (demo)
+      const res = document.getElementById('result');
+      res.innerHTML = <div class="success">Thanks <strong>${escapeHtml(data.name||'friend')}</strong>! Your form was submitted (demo). We received: <br><small style="opacity:.9">${escapeHtml(JSON.stringify(data))}</small></div>;
+      form.reset();
+      return false;
+    }
+
+    // small helper to avoid injecting raw HTML from user fields
+    function escapeHtml(str){
+      return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    }
+  </script>
+</body>
+</html>
